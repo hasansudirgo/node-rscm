@@ -1,31 +1,38 @@
 var express = require('express');
-var cors = require('cors');
+//var cors = require('cors');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.use(cors());
+//app.use(cors());
 
-app.get('/', function (req, res, next) {
+var enableCORS = function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'Origin, Accept, Content-Type, Authorization, Content-Length, X-Requested-With');
+	if ('OPTIONS' == req.method) {
+  	res.send(200);
+	}else {
+  	next();
+	}
+};
+
+app.use(enableCORS);
+
+app.get('/', function(req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
-})
-
-var whitelist = ['http://localhost:1841', 'http://localhost', 'http://juhono.com']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-
-
-app.use(express.static( __dirname + '/' ));
-app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
 });
+
+app.post('/', function(req, res, next) {
+ // Handle the post for this route
+ res.json({msg: 'This is app-post!'})
+});
+
+
+//app.use(express.static( __dirname + '/' ));
+//app.get('/', function(req, res){
+  //res.sendFile(__dirname + '/index.html');
+//});
 
 
 
