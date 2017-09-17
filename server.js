@@ -22,7 +22,6 @@ app.get('/', function(req, res){
 
 
 
-
 io.on('connection', function(socket){
 	console.log('socket connected');
   socket.on('theatre', function(newValue,action){
@@ -45,56 +44,15 @@ io.on('connection', function(socket){
   socket.on('position', function(data,action){
 		socket.broadcast.emit('position_'+action, data);
   });
-	var gcm = require('node-gcm');
 
-
-  socket.on('push', function(data){
-  	
-  	
-	var message = new gcm.Message({
-    "soundname": "default",
-    "style": "inbox",
-    "summaryText": "There are %n% notifications",
-    "ledColor": [0, 0, 255, 0],
-    "vibrationPattern": [2000, 1000, 500, 500],
-    "priority": 2,
-    "content-available": "1"
-    //"delayWhileIdle": true
-	});
-	var sender = new gcm.Sender('AIzaSyC1cYdTVqsvzby2QP0SNrpNJx_mbx7rCHs');
-  	
-  	
-  	console.log('push received');
-  	message.addData('notId',data.notId);	
-		message.addData('message',data.message);	
-		message.addData('title',data.title );
-		message.addData('style','inbox');
-		message.addData('summaryText','There are %n% notifications');
-		message.addData('priority',2);
-		message.addData('content-available','1');
-		message.addData('vibrationPattern',[2000, 1000, 500, 500]);
-		message.timeToLive = 3000;// Duration in seconds to hold in GCM and retry before timing out. Default 4 weeks (2,419,200 seconds) if not specified.
-		var registrationIds=data.regids;
-		var teamId=data.teamId;
-		
-		sender.send(message, { registrationTokens: registrationIds }, 4, function (err, response) {
-  		if(err) {
-  			console.error('error:',err);
-  		}	else {
-  			console.log(response);
-  			socket.broadcast.emit('push_callback', teamId);
-  			
-  		}
-		});
-  });
 });
   
 //var port=process.env.OPENSHIFT_NODEJS_PORT || 3000;
 //var ipaddress=process.env.OPENSHIFT_NODEJS_IP;
 
-var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var ip =  '0.0.0.0';
+var port = 8080;
 
-http.listen(port,ipaddress, function() {
+http.listen(port,ip, function() {
   console.log('Node app is running on port', port);
 });
