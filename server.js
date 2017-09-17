@@ -1,16 +1,25 @@
 var express = require('express');
+var cors = require('cors');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-
-var cors = require('cors');
 app.use(cors());
 
-app.get('/products/:id', function (req, res, next) {
+app.get('/', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
+var whitelist = ['http://localhost:1841', 'http://localhost', 'http://juhono.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 
 app.use(express.static( __dirname + '/' ));
@@ -55,6 +64,7 @@ var port = 8080;
 //  console.log('CORS-enabled web server listening on port 80')
 //})
 
-http.listen(port,ip, function() {
-  console.log('Node app is running on port', port);
-});
+
+http.listen(8080, function () {
+  console.log('CORS-enabled web server listening on port 8080')
+})
