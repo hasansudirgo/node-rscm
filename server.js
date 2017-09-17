@@ -17,7 +17,7 @@ app.get('/', function(req, res){
 
 
 io.on('connection', function(socket){
-	console.log('socket connected');
+	console.log('socket connected bla bla bla');
   socket.on('theatre', function(newValue,action){
 		socket.broadcast.emit('theatre_'+action, newValue);
   });
@@ -45,7 +45,7 @@ io.on('connection', function(socket){
 //var ipaddress=process.env.OPENSHIFT_NODEJS_IP;
 
 var ip =  '0.0.0.0';
-var port = 8888;
+var port = 5888;
 
 http.listen(port,ip, function() {
   console.log('Node app is running on port', port);
