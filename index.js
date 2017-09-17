@@ -87,13 +87,12 @@ io.on('connection', function(socket){
   		}
 		});
   });
+
 });
   
-//var port=process.env.OPENSHIFT_NODEJS_PORT || 3000;
-//var ipaddress=process.env.OPENSHIFT_NODEJS_IP;
+var port=process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var ipaddress=process.env.OPENSHIFT_NODEJS_IP;
 
-var ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 http.listen(port,ipaddress, function() {
   console.log('Node app is running on port', port);
