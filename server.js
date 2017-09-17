@@ -51,7 +51,7 @@ io.on('connection', function(socket){
 //var ipaddress=process.env.OPENSHIFT_NODEJS_IP;
 
 var ip =  '0.0.0.0';
-var port = 8080;
+var port = 8888;
 
 http.listen(port,ip, function() {
   console.log('Node app is running on port', port);
