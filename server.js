@@ -3,19 +3,15 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
-app.get('/', function(req, res, next) {
-  // Handle the get for this route
-});
+var cors = require('cors');
+app.use(cors());
 
-app.post('/', function(req, res, next) {
- // Handle the post for this route
-});
+app.get('/products/:id', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+
+
 
 app.use(express.static( __dirname + '/' ));
 app.get('/', function(req, res){
@@ -53,7 +49,11 @@ io.on('connection', function(socket){
 //var ipaddress=process.env.OPENSHIFT_NODEJS_IP;
 
 var ip =  '0.0.0.0';
-var port = 5888;
+var port = 8080;
+
+//app.listen(80, function () {
+//  console.log('CORS-enabled web server listening on port 80')
+//})
 
 http.listen(port,ip, function() {
   console.log('Node app is running on port', port);
