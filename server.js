@@ -1,23 +1,23 @@
 var express = require('express');
-var cors = require('cors');
+//var cors = require('cors');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.use(cors());
-app.options('/', cors());
+//app.use(cors());
+//app.options('/', cors());
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+//app.use(function(req, res, next) {
+//  res.header("Access-Control-Allow-Origin", "*");
+//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+//  res.header('Access-Control-Allow-Headers', 'Content-Type');
+//  next();
+//});
 
 
 
-/*
+
 var enableCORS = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
@@ -34,7 +34,7 @@ app.use(express.static( __dirname + '/' ));
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
-*/
+
 
 
 io.on('connection', function(socket){
