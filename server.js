@@ -8,7 +8,7 @@ app.use(cors());
 app.options('/', cors());
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:1841");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
@@ -75,6 +75,9 @@ var ip =  '0.0.0.0';
 var isUseHTTPs  = true;
 var port = 443; // or 9001
 
-http.listen(port, function () {
-  console.log('CORS-enabled web server listening on port '+port)
-})
+
+http.listen(port);
+
+//http.listen(port, function () {
+//  console.log('CORS-enabled web server listening on port '+port)
+//})
