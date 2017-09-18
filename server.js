@@ -73,11 +73,11 @@ var ip =  '0.0.0.0';
 //})
 
 var isUseHTTPs  = true;
-var port = 443; // or 9001
+var port = 8443; // or 9001
 
 
-http.listen(port);
+//http.listen(port);
 
-//http.listen(port, function () {
-//  console.log('CORS-enabled web server listening on port '+port)
-//})
+http.listen(port, function () {
+  console.log('CORS-enabled web server listening on port '+port)
+})
