@@ -73,7 +73,7 @@ var ip =  '0.0.0.0';
 //})
 
 var isUseHTTPs  = true;
-var port = 8443; // or 9001
+var port = 443; // or 9001
 
 
 //http.listen(port);
