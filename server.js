@@ -1,25 +1,40 @@
 var express = require('express');
-//var cors = require('cors');
+var cors = require('cors');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-//app.use(cors());
-
-
-//app.options('/', cors());
+app.use(cors());
+app.options('/', cors());
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:*");
+  res.header("Access-Control-Allow-Origin", "http://localhost:1841");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 
+
+
+/*
+var enableCORS = function(req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-   Length, X-Requested-With');
+	if ('OPTIONS' == req.method) {
+  	res.send(200);
+	}else {
+  	next();
+	}
+};
+
+app.use(enableCORS);
 app.use(express.static( __dirname + '/' ));
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
-
+*/
 
 
 io.on('connection', function(socket){
@@ -51,13 +66,15 @@ io.on('connection', function(socket){
 //var ipaddress=process.env.OPENSHIFT_NODEJS_IP;
 
 var ip =  '0.0.0.0';
-var port = 8080;
+//var port = 8080;
 
 //app.listen(80, function () {
 //  console.log('CORS-enabled web server listening on port 80')
 //})
 
+var isUseHTTPs  = true;
+var port = 443; // or 9001
 
-http.listen(8080, function () {
-  console.log('CORS-enabled web server listening on port 8080')
+http.listen(port, function () {
+  console.log('CORS-enabled web server listening on port '+port)
 })
